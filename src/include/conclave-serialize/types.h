@@ -10,7 +10,7 @@
 
 typedef uint32_t ClvSerializeRoomId;
 typedef uint32_t ClvSerializeSessionId;
-typedef uint8_t ClvSerializeMemberConnectionIndex;
+typedef uint8_t ClvSerializeRoomConnectionIndex;
 
 struct BlobStreamOutEntry;
 
@@ -25,19 +25,10 @@ typedef struct ClvSerializeRoomCreateOptions {
     size_t maxNumberOfPlayers;
     int flags;
     const char* name;
-    ClvSerializeRoomCreatePlayerOptions joiningPlayers[MAX_LOCAL_PLAYERS];
-    size_t joiningPlayerCount;
 } ClvSerializeRoomCreateOptions;
-
-typedef struct ClvSerializePlayerJoinOptions {
-    uint8_t localIndex;
-    const char* name;
-} ClvSerializePlayerJoinOptions;
 
 typedef struct ClvSerializeRoomJoinOptions {
     const char* name;
-    ClvSerializePlayerJoinOptions players[8];
-    size_t playerCount;
 } ClvSerializeRoomJoinOptions;
 
 typedef struct ClvSerializeRoomReJoinOptions {

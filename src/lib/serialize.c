@@ -3,10 +3,10 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 #include <clog/clog.h>
-#include <conclave-serialize/commands.h>
 #include <conclave-serialize/serialize.h>
 #include <flood/in_stream.h>
 #include <flood/out_stream.h>
+#include <conclave-serialize/debug.h>
 
 void clvSerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix)
 {
@@ -27,4 +27,9 @@ int clvSerializeReadRoomId(struct FldInStream* stream, uint32_t* roomId)
 {
     fldInStreamCheckMarker(stream, 0x85);
     return fldInStreamReadUInt32(stream, roomId);
+}
+
+int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream, uint8_t* roomConnectionIndex)
+{
+    return fldInStreamReadUInt8(stream, roomConnectionIndex);
 }

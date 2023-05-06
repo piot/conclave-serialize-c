@@ -14,19 +14,6 @@ static void writeString(FldOutStream* stream, const char* s)
     fldOutStreamWriteOctets(stream, (const uint8_t*) s, len);
 }
 
-static int clvSerializeClientOutParticipantConnectionJoin(FldOutStream* stream,
-                                                          const struct ClvSerializePlayerJoinOptions* joinInfos,
-                                                          size_t localParticipantCount)
-{
-    fldOutStreamWriteUInt8(stream, localParticipantCount);
-    for (size_t i = 0; i < localParticipantCount; ++i) {
-        fldOutStreamWriteUInt8(stream, joinInfos[i].localIndex);
-        writeString(stream, joinInfos[i].name);
-    }
-
-    return 0;
-}
-
 int clvSerializeClientOutRoomCreate(FldOutStream* stream, uint32_t userSessionId,
                                     const ClvSerializeRoomCreateOptions* options)
 {
@@ -36,28 +23,8 @@ int clvSerializeClientOutRoomCreate(FldOutStream* stream, uint32_t userSessionId
     fldOutStreamWriteUInt8(stream, options->maxNumberOfPlayers);
     fldOutStreamWriteUInt8(stream, options->flags);
 
-    // clvSerializeClientOutGameStateCreateHelper(stream, &options->gameState);
-
-    ClvSerializePlayerJoinOptions joinInfo[1] = {
-        {options->joiningPlayers[0].localUserDeviceIndex, options->joiningPlayers[0].name}};
-    clvSerializeClientOutParticipantConnectionJoin(stream, joinInfo, options->joiningPlayerCount);
-
     return 0;
 }
-
-/*
-int clvSerializeClientOutGameCreate(FldOutStream* stream, const ClvSerializeGameCreateOptions* options)
-{
-    // TODO: Send type information as well.
-    fldOutStreamWriteUInt8(stream, clvSerializeCmdGameCreate);
-    fldOutStreamWriteUInt32(stream, options->roomId);
-    fldOutStreamWriteUInt32(stream, options->gameState.gameStateOctetCount);
-    fldOutStreamWriteOctets(stream, options->gameState.gameState, options->gameState.gameStateOctetCount);
-
-    return 0;
-}
-
-*/
 
 int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, uint32_t roomId, uint8_t roomConnectionIndex)
 {
@@ -82,7 +49,7 @@ int clvSerializeClientOutRoomJoin(FldOutStream* stream, uint32_t userSessionId,
     clvSerializeWriteCommand(stream, clvSerializeCmdRoomJoin, COMMAND_DEBUG);
     fldOutStreamWriteUInt32(stream, userSessionId);
     writeString(stream, options->name);
-    clvSerializeClientOutParticipantConnectionJoin(stream, options->players, options->playerCount);
+
     return 0;
 }
 
@@ -93,12 +60,3 @@ int clvSerializeClientOutRoomReJoin(FldOutStream* stream, const ClvSerializeRoom
 
     return 0;
 }
-
-/*
-int clvSerializeClientOutGameJoin(struct FldOutStream* stream, uint32_t roomId, uint8_t roomConnectionIndex)
-{
-    clvSerializeWriteCommand(stream, clvSerializeCmdGameJoin);
-    clvSerializeeRoomAndConnectionIndex(stream, roomId, roomConnectionIndex);
-    return 0;
-}
-*/
