@@ -38,7 +38,7 @@ int clvSerializeServerOutLogin(FldOutStream* outStream, ClvSerializeSessionId us
 
 int clvSerializeServerOutPacketHeader(FldOutStream* outStream)
 {
-    clvSerializeWriteCommand(outStream, clvSerializeCmdPacketResponse, DEBUG_PREFIX);
+    clvSerializeWriteCommand(outStream, clvSerializeCmdPacketToClient, DEBUG_PREFIX);
 
 
     return 0;

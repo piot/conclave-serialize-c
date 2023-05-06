@@ -24,8 +24,8 @@ const char* clvSerializeCmdToString(uint8_t t)
             return "RoomCreateResponse";
         case clvSerializeCmdLoginResponse:
             return "LoginResponse";
-        case clvSerializeCmdPacketResponse:
-            return "PacketResponse";
+        case clvSerializeCmdPacketToClient:
+            return "PacketToClient";
         case clvSerializeCmdRoomJoinResponse:
             return "RoomJoinResponse";
         case clvSerializeCmdRoomReJoinResponse:
