@@ -10,7 +10,7 @@
 
 void clvSerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix)
 {
-    CLOG_VERBOSE("%s: cmd: %s", prefix, clvSerializeCmdToString(cmd));
+    //CLOG_VERBOSE("%s: cmd: %s", prefix, clvSerializeCmdToString(cmd));
     fldOutStreamWriteUInt8(outStream, cmd);
 }
 
