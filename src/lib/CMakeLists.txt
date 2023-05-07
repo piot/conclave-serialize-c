@@ -24,7 +24,7 @@ file(GLOB lib_src FOLLOW_SYMLINKS "*.c")
 add_library(conclave_serialize STATIC ${lib_src})
 
 target_compile_options(
-  conclave-serialize
+  conclave_serialize
   PRIVATE -Wall
           -Wextra
           -Wshadow
@@ -46,7 +46,7 @@ target_compile_options(
 
 if(COMPILER_CLANG)
   target_compile_options(
-    conclave-serialize PRIVATE -Wmost -Weverything
+    conclave_serialize PRIVATE -Wmost -Weverything
                                -Werror=missing-variable-declarations)
 endif()
 
