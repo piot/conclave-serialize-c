@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(conclave-serialize C)
+project(conclave_serialize C)
 
 add_subdirectory("lib")
 
