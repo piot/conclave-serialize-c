@@ -22,4 +22,7 @@ int clvSerializeClientOutGameJoin(struct FldOutStream* stream, uint32_t roomId, 
 int clvSerializeClientOutRoomAndConnectionIndex(struct FldOutStream* stream, uint32_t roomId,
                                                 uint8_t roomConnectionIndex);
 
+int clvSerializeClientOutListRooms(struct FldOutStream* stream, uint32_t userSessionId,
+                                   const ClvSerializeListRoomsOptions* options);
+
 #endif

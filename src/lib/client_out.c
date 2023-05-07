@@ -7,19 +7,12 @@
 #include <flood/out_stream.h>
 #include <tiny-libc/tiny_libc.h>
 
-static void writeString(FldOutStream* stream, const char* s)
-{
-    size_t len = tc_strlen(s);
-    fldOutStreamWriteUInt8(stream, len);
-    fldOutStreamWriteOctets(stream, (const uint8_t*) s, len);
-}
-
 int clvSerializeClientOutRoomCreate(FldOutStream* stream, uint32_t userSessionId,
                                     const ClvSerializeRoomCreateOptions* options)
 {
     fldOutStreamWriteUInt8(stream, clvSerializeCmdRoomCreate);
     fldOutStreamWriteUInt32(stream, userSessionId);
-    writeString(stream, options->name);
+    clvSerializeWriteString(stream, options->name);
     fldOutStreamWriteUInt8(stream, options->maxNumberOfPlayers);
     fldOutStreamWriteUInt8(stream, options->flags);
 
@@ -38,7 +31,7 @@ int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, uint32_t r
 int clvSerializeClientOutLogin(FldOutStream* stream, const char* name)
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdLogin, COMMAND_DEBUG);
-    writeString(stream, name);
+    clvSerializeWriteString(stream, name);
 
     return 0;
 }
@@ -48,7 +41,7 @@ int clvSerializeClientOutRoomJoin(FldOutStream* stream, uint32_t userSessionId,
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdRoomJoin, COMMAND_DEBUG);
     fldOutStreamWriteUInt32(stream, userSessionId);
-    writeString(stream, options->name);
+    clvSerializeWriteRoomId(stream, options->roomIdToJoin);
 
     return 0;
 }
@@ -57,6 +50,17 @@ int clvSerializeClientOutRoomReJoin(FldOutStream* stream, const ClvSerializeRoom
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdRoomReJoin, COMMAND_DEBUG);
     clvSerializeClientOutRoomAndConnectionIndex(stream, options->roomId, options->roomConnectionIndex);
+
+    return 0;
+}
+
+int clvSerializeClientOutListRooms(FldOutStream* stream, uint32_t userSessionId,
+                                   const ClvSerializeListRoomsOptions* options)
+{
+    clvSerializeWriteCommand(stream, clvSerializeCmdListRooms, COMMAND_DEBUG);
+    fldOutStreamWriteUInt32(stream, userSessionId);
+    fldOutStreamWriteUInt64(stream, options->applicationId);
+    fldOutStreamWriteUInt8(stream, options->maximumCount);
 
     return 0;
 }

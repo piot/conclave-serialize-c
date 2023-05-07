@@ -18,5 +18,6 @@ int clvSerializeServerOutRoomJoin(struct FldOutStream* outStream, ClvSerializeRo
                                   ClvSerializeRoomConnectionIndex connectionIndex);
 
 int clvSerializeServerOutPacketHeader(struct FldOutStream* outStream);
+int clvSerializeServerOutListRooms(struct FldOutStream* outStream, ClvSerializeListRoomsResponseOptions* options);
 
 #endif

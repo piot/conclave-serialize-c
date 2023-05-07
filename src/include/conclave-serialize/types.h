@@ -11,6 +11,7 @@
 typedef uint32_t ClvSerializeRoomId;
 typedef uint32_t ClvSerializeSessionId;
 typedef uint8_t ClvSerializeRoomConnectionIndex;
+typedef uint64_t ClvSerializeApplicationId;
 
 struct BlobStreamOutEntry;
 
@@ -28,12 +29,29 @@ typedef struct ClvSerializeRoomCreateOptions {
 } ClvSerializeRoomCreateOptions;
 
 typedef struct ClvSerializeRoomJoinOptions {
-    const char* name;
+    ClvSerializeRoomId roomIdToJoin;
 } ClvSerializeRoomJoinOptions;
 
 typedef struct ClvSerializeRoomReJoinOptions {
     uint64_t roomId;
     uint8_t roomConnectionIndex;
 } ClvSerializeRoomReJoinOptions;
+
+typedef struct ClvSerializeListRoomsOptions {
+    ClvSerializeApplicationId applicationId;
+    uint8_t maximumCount;
+} ClvSerializeListRoomsOptions;
+
+typedef struct ClvSerializeRoomInfo {
+    ClvSerializeRoomId roomId;
+    ClvSerializeApplicationId applicationId;
+    const char* roomName;
+    const char* hostUserName;
+} ClvSerializeRoomInfo;
+
+typedef struct ClvSerializeListRoomsResponseOptions {
+    size_t roomInfoCount;
+    ClvSerializeRoomInfo roomInfos[16];
+} ClvSerializeListRoomsResponseOptions;
 
 #endif

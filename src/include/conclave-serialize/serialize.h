@@ -18,5 +18,7 @@ void clvSerializeWriteRoomId(struct FldOutStream* outStream, uint32_t roomId);
 
 int clvSerializeReadRoomId(struct FldInStream* stream, uint32_t* roomId);
 int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream, uint8_t* roomConnectionIndex);
+int clvSerializeWriteString(struct FldOutStream* stream, const char* s);
+int clvSerializeReadString(struct FldInStream* stream, char* buf, size_t maxLength);
 
 #endif
