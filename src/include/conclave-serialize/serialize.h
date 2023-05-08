@@ -14,10 +14,13 @@ struct FldOutStream;
 struct FldInStream;
 
 void clvSerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix);
-void clvSerializeWriteRoomId(struct FldOutStream* outStream, uint32_t roomId);
+void clvSerializeWriteRoomId(struct FldOutStream* outStream, ClvSerializeRoomId roomId);
+void clvSerializeWriteUserSessionId(struct FldOutStream* outStream, ClvSerializeUserSessionId userSessionId);
 
-int clvSerializeReadRoomId(struct FldInStream* stream, uint32_t* roomId);
-int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream, uint8_t* roomConnectionIndex);
+int clvSerializeReadUserSessionId(struct FldInStream* stream, ClvSerializeUserSessionId* userSessionId);
+int clvSerializeReadRoomId(struct FldInStream* stream, ClvSerializeRoomId* roomId);
+int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream, ClvSerializeRoomConnectionIndex* roomConnectionIndex);
+int clvSerializeWriteRoomConnectionIndex(struct FldOutStream* stream, ClvSerializeRoomConnectionIndex roomConnectionIndex);
 int clvSerializeWriteString(struct FldOutStream* stream, const char* s);
 int clvSerializeReadString(struct FldInStream* stream, char* buf, size_t maxLength);
 

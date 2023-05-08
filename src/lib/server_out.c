@@ -28,10 +28,10 @@ int clvSerializeServerOutRoomCreate(FldOutStream* outStream, ClvSerializeRoomId 
     return errorCode;
 }
 
-int clvSerializeServerOutLogin(FldOutStream* outStream, ClvSerializeSessionId userSessionId)
+int clvSerializeServerOutLogin(FldOutStream* outStream, ClvSerializeUserSessionId userSessionId)
 {
     clvSerializeWriteCommand(outStream, clvSerializeCmdLoginResponse, DEBUG_PREFIX);
-    fldOutStreamWriteUInt32(outStream, userSessionId);
+    clvSerializeWriteUserSessionId(outStream, userSessionId);
 
     return 0;
 }

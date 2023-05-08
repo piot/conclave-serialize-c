@@ -10,26 +10,48 @@
 
 void clvSerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix)
 {
-    //CLOG_VERBOSE("%s: cmd: %s", prefix, clvSerializeCmdToString(cmd));
+    // CLOG_VERBOSE("%s: cmd: %s", prefix, clvSerializeCmdToString(cmd));
     fldOutStreamWriteUInt8(outStream, cmd);
 }
 
-void clvSerializeWriteRoomId(struct FldOutStream* stream, uint32_t roomId)
+void clvSerializeWriteRoomId(struct FldOutStream* stream, ClvSerializeRoomId roomId)
 {
     if (roomId == 0) {
         CLOG_ERROR("roomId zero is reserved");
     }
     fldOutStreamWriteMarker(stream, 0x85);
-    fldOutStreamWriteUInt32(stream, roomId);
+    fldOutStreamWriteUInt16(stream, roomId);
 }
 
-int clvSerializeReadRoomId(struct FldInStream* stream, uint32_t* roomId)
+void clvSerializeWriteUserSessionId(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId)
+{
+    if (userSessionId == 0) {
+        CLOG_ERROR("userSessionId zero is reserved");
+    }
+    fldOutStreamWriteMarker(stream, 0x86);
+    fldOutStreamWriteUInt64(stream, userSessionId);
+}
+
+int clvSerializeReadRoomId(struct FldInStream* stream, ClvSerializeRoomId* roomId)
 {
     fldInStreamCheckMarker(stream, 0x85);
-    return fldInStreamReadUInt32(stream, roomId);
+    return fldInStreamReadUInt16(stream, roomId);
 }
 
-int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream, uint8_t* roomConnectionIndex)
+int clvSerializeReadUserSessionId(struct FldInStream* stream, ClvSerializeUserSessionId* userSessionId)
+{
+    fldInStreamCheckMarker(stream, 0x86);
+    return fldInStreamReadUInt64(stream, userSessionId);
+}
+
+int clvSerializeWriteRoomConnectionIndex(struct FldOutStream* stream,
+                                         ClvSerializeRoomConnectionIndex roomConnectionIndex)
+{
+    return fldOutStreamWriteUInt8(stream, roomConnectionIndex);
+}
+
+int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream,
+                                        ClvSerializeRoomConnectionIndex* roomConnectionIndex)
 {
     return fldInStreamReadUInt8(stream, roomConnectionIndex);
 }

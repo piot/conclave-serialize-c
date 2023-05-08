@@ -7,11 +7,11 @@
 #include <flood/out_stream.h>
 #include <tiny-libc/tiny_libc.h>
 
-int clvSerializeClientOutRoomCreate(FldOutStream* stream, uint32_t userSessionId,
+int clvSerializeClientOutRoomCreate(FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
                                     const ClvSerializeRoomCreateOptions* options)
 {
     fldOutStreamWriteUInt8(stream, clvSerializeCmdRoomCreate);
-    fldOutStreamWriteUInt32(stream, userSessionId);
+    clvSerializeWriteUserSessionId(stream, userSessionId);
     clvSerializeWriteString(stream, options->name);
     fldOutStreamWriteUInt8(stream, options->maxNumberOfPlayers);
     fldOutStreamWriteUInt8(stream, options->flags);
@@ -19,7 +19,7 @@ int clvSerializeClientOutRoomCreate(FldOutStream* stream, uint32_t userSessionId
     return 0;
 }
 
-int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, uint32_t roomId, uint8_t roomConnectionIndex)
+int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, ClvSerializeRoomId roomId, uint8_t roomConnectionIndex)
 {
     clvSerializeWriteRoomId(stream, roomId);
 
@@ -36,11 +36,11 @@ int clvSerializeClientOutLogin(FldOutStream* stream, const char* name)
     return 0;
 }
 
-int clvSerializeClientOutRoomJoin(FldOutStream* stream, uint32_t userSessionId,
+int clvSerializeClientOutRoomJoin(FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
                                   const ClvSerializeRoomJoinOptions* options)
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdRoomJoin, COMMAND_DEBUG);
-    fldOutStreamWriteUInt32(stream, userSessionId);
+    clvSerializeWriteUserSessionId(stream, userSessionId);
     clvSerializeWriteRoomId(stream, options->roomIdToJoin);
 
     return 0;
@@ -54,11 +54,11 @@ int clvSerializeClientOutRoomReJoin(FldOutStream* stream, const ClvSerializeRoom
     return 0;
 }
 
-int clvSerializeClientOutListRooms(FldOutStream* stream, uint32_t userSessionId,
+int clvSerializeClientOutListRooms(FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
                                    const ClvSerializeListRoomsOptions* options)
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdListRooms, COMMAND_DEBUG);
-    fldOutStreamWriteUInt32(stream, userSessionId);
+    clvSerializeWriteUserSessionId(stream, userSessionId);
     fldOutStreamWriteUInt64(stream, options->applicationId);
     fldOutStreamWriteUInt8(stream, options->maximumCount);
 

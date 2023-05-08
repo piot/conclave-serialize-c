@@ -8,8 +8,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-typedef uint32_t ClvSerializeRoomId;
-typedef uint32_t ClvSerializeSessionId;
+typedef uint16_t ClvSerializeRoomId;
+typedef uint64_t ClvSerializeUserSessionId;
 typedef uint8_t ClvSerializeRoomConnectionIndex;
 typedef uint64_t ClvSerializeApplicationId;
 
