@@ -19,7 +19,8 @@ int clvSerializeClientOutRoomCreate(FldOutStream* stream, ClvSerializeUserSessio
     return 0;
 }
 
-int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, ClvSerializeRoomId roomId, uint8_t roomConnectionIndex)
+int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, ClvSerializeRoomId roomId,
+                                                uint8_t roomConnectionIndex)
 {
     clvSerializeWriteRoomId(stream, roomId);
 
@@ -28,10 +29,21 @@ int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, ClvSeriali
 
 #define COMMAND_DEBUG "ClientOut"
 
-int clvSerializeClientOutLogin(FldOutStream* stream, const char* name)
+int clvSerializeClientOutLogin(FldOutStream* stream, ClvSerializeClientNonce clientNonce,
+                               ClvSerializeServerChallenge challenge, const char* name)
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdLogin, COMMAND_DEBUG);
+    clvSerializeWriteClientNonce(stream, clientNonce);
+    clvSerializeWriteServerChallenge(stream, challenge);
     clvSerializeWriteString(stream, name);
+
+    return 0;
+}
+
+int clvSerializeClientOutChallenge(FldOutStream* stream, ClvSerializeClientNonce clientNonce)
+{
+    clvSerializeWriteCommand(stream, clvSerializeCmdChallenge, COMMAND_DEBUG);
+    clvSerializeWriteClientNonce(stream, clientNonce);
 
     return 0;
 }

@@ -27,3 +27,19 @@ int clvSerializeClientInListRoomsResponse(FldInStream* stream, ClvSerializeListR
 
     return 0;
 }
+
+int clvSerializeClientInChallenge(FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
+                                  ClvSerializeServerChallenge* serverChallenge)
+{
+    clvSerializeReadClientNonce(inStream, clientNonce);
+
+    return clvSerializeReadServerChallenge(inStream, serverChallenge);
+}
+
+int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
+                              ClvSerializeUserSessionId* userSessionId)
+{
+    clvSerializeReadClientNonce(inStream, clientNonce);
+
+    return clvSerializeReadUserSessionId(inStream, userSessionId);
+}

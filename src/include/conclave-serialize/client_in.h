@@ -13,5 +13,9 @@
 struct FldInStream;
 
 int clvSerializeClientInListRoomsResponse(struct FldInStream* stream, ClvSerializeListRoomsResponseOptions* options);
+int clvSerializeClientInChallenge(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
+                                  ClvSerializeServerChallenge* serverChallenge);
+int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
+                              ClvSerializeUserSessionId* userSessionId);
 
 #endif

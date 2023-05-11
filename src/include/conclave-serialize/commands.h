@@ -18,6 +18,7 @@
 #define clvSerializeCmdPacket (0x05)
 #define clvSerializeCmdRoomReJoin (0x08)
 #define clvSerializeCmdListRooms (0x09)
+#define clvSerializeCmdChallenge (0x0A)
 
 // Responses
 #define clvSerializeCmdRoomCreateResponse (0x21)
@@ -26,5 +27,6 @@
 #define clvSerializeCmdRoomJoinResponse (0x25)
 #define clvSerializeCmdRoomReJoinResponse (0x28)
 #define clvSerializeCmdListRoomsResponse (0x29)
+#define clvSerializeCmdChallengeResponse (0x2A)
 
 #endif

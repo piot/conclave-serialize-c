@@ -28,9 +28,21 @@ int clvSerializeServerOutRoomCreate(FldOutStream* outStream, ClvSerializeRoomId 
     return errorCode;
 }
 
-int clvSerializeServerOutLogin(FldOutStream* outStream, ClvSerializeUserSessionId userSessionId)
+int clvSerializeServerOutChallenge(FldOutStream* outStream, ClvSerializeClientNonce forClient,
+                                   ClvSerializeServerChallenge challenge)
+{
+    clvSerializeWriteCommand(outStream, clvSerializeCmdChallengeResponse, DEBUG_PREFIX);
+    clvSerializeWriteClientNonce(outStream, forClient);
+    clvSerializeWriteServerChallenge(outStream, challenge);
+
+    return 0;
+}
+
+int clvSerializeServerOutLogin(FldOutStream* outStream, ClvSerializeClientNonce forClient,
+                               ClvSerializeUserSessionId userSessionId)
 {
     clvSerializeWriteCommand(outStream, clvSerializeCmdLoginResponse, DEBUG_PREFIX);
+    clvSerializeWriteClientNonce(outStream, forClient);
     clvSerializeWriteUserSessionId(outStream, userSessionId);
 
     return 0;

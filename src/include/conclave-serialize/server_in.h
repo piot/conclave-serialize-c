@@ -12,7 +12,11 @@
 
 struct FldInStream;
 
-int clvSerializeServerInListRooms(struct FldInStream* stream,
-                                 ClvSerializeListRoomsOptions* options);
+int clvSerializeServerInListRooms(struct FldInStream* stream, ClvSerializeListRoomsOptions* options);
+
+int clvSerializeServerInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
+                              ClvSerializeServerChallenge* serverChallenge, char* target, size_t maxTarget);
+
+int clvSerializeServerInChallenge(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce);
 
 #endif

@@ -23,6 +23,12 @@ void clvSerializeWriteRoomId(struct FldOutStream* stream, ClvSerializeRoomId roo
     fldOutStreamWriteUInt16(stream, roomId);
 }
 
+int clvSerializeReadRoomId(struct FldInStream* stream, ClvSerializeRoomId* roomId)
+{
+    fldInStreamCheckMarker(stream, 0x85);
+    return fldInStreamReadUInt16(stream, roomId);
+}
+
 void clvSerializeWriteUserSessionId(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId)
 {
     if (userSessionId == 0) {
@@ -32,16 +38,34 @@ void clvSerializeWriteUserSessionId(struct FldOutStream* stream, ClvSerializeUse
     fldOutStreamWriteUInt64(stream, userSessionId);
 }
 
-int clvSerializeReadRoomId(struct FldInStream* stream, ClvSerializeRoomId* roomId)
-{
-    fldInStreamCheckMarker(stream, 0x85);
-    return fldInStreamReadUInt16(stream, roomId);
-}
-
 int clvSerializeReadUserSessionId(struct FldInStream* stream, ClvSerializeUserSessionId* userSessionId)
 {
     fldInStreamCheckMarker(stream, 0x86);
     return fldInStreamReadUInt64(stream, userSessionId);
+}
+
+void clvSerializeWriteClientNonce(struct FldOutStream* stream, ClvSerializeClientNonce clientNonce)
+{
+    fldOutStreamWriteMarker(stream, 0x87);
+    fldOutStreamWriteUInt64(stream, clientNonce);
+}
+
+int clvSerializeReadClientNonce(struct FldInStream* stream, ClvSerializeClientNonce* clientNonce)
+{
+    fldInStreamCheckMarker(stream, 0x87);
+    return fldInStreamReadUInt64(stream, clientNonce);
+}
+
+void clvSerializeWriteServerChallenge(struct FldOutStream* stream, ClvSerializeServerChallenge serverChallenge)
+{
+    fldOutStreamWriteMarker(stream, 0x88);
+    fldOutStreamWriteUInt64(stream, serverChallenge);
+}
+
+int clvSerializeReadServerChallenge(struct FldInStream* stream, ClvSerializeServerChallenge* serverChallenge)
+{
+    fldInStreamCheckMarker(stream, 0x88);
+    return fldInStreamReadUInt64(stream, serverChallenge);
 }
 
 int clvSerializeWriteRoomConnectionIndex(struct FldOutStream* stream,
