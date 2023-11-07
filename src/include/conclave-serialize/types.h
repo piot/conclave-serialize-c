@@ -1,7 +1,7 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Peter Bjorklund. All rights reserved.
+/*----------------------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/piot/conclave-serialize-c
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+ *--------------------------------------------------------------------------------------------------------*/
 #ifndef CONCLAVE_SERIALIZE_TYPES_H
 #define CONCLAVE_SERIALIZE_TYPES_H
 
@@ -22,8 +22,6 @@ typedef struct ClvSerializeRoomCreatePlayerOptions {
     const char* name;
 } ClvSerializeRoomCreatePlayerOptions;
 
-#define MAX_LOCAL_PLAYERS (4)
-
 typedef struct ClvSerializeRoomCreateOptions {
     size_t maxNumberOfPlayers;
     int flags;
@@ -35,8 +33,8 @@ typedef struct ClvSerializeRoomJoinOptions {
 } ClvSerializeRoomJoinOptions;
 
 typedef struct ClvSerializeRoomReJoinOptions {
-    uint64_t roomId;
-    uint8_t roomConnectionIndex;
+    ClvSerializeRoomId roomId;
+    ClvSerializeRoomConnectionIndex roomConnectionIndex;
 } ClvSerializeRoomReJoinOptions;
 
 typedef struct ClvSerializeListRoomsOptions {
@@ -51,9 +49,11 @@ typedef struct ClvSerializeRoomInfo {
     const char* hostUserName;
 } ClvSerializeRoomInfo;
 
+#define CLV_MAX_ROOM_COUNT_QUERY_RESPONSE (16)
+
 typedef struct ClvSerializeListRoomsResponseOptions {
     size_t roomInfoCount;
-    ClvSerializeRoomInfo roomInfos[16];
+    ClvSerializeRoomInfo roomInfos[CLV_MAX_ROOM_COUNT_QUERY_RESPONSE];
 } ClvSerializeListRoomsResponseOptions;
 
 #endif

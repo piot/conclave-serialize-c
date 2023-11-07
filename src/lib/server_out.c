@@ -1,7 +1,7 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Peter Bjorklund. All rights reserved.
+/*----------------------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/piot/conclave-serialize-c
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+ *--------------------------------------------------------------------------------------------------------*/
 #include <conclave-serialize/commands.h>
 #include <conclave-serialize/server_out.h>
 #include <flood/out_stream.h>
@@ -48,12 +48,6 @@ int clvSerializeServerOutLogin(FldOutStream* outStream, ClvSerializeClientNonce 
     return 0;
 }
 
-int clvSerializeServerOutPacketHeader(FldOutStream* outStream)
-{
-    clvSerializeWriteCommand(outStream, clvSerializeCmdPacketToClient, DEBUG_PREFIX);
-
-    return 0;
-}
 
 int clvSerializeServerOutRoomJoin(FldOutStream* outStream, ClvSerializeRoomId roomId,
                                   ClvSerializeRoomConnectionIndex roomConnectionIndex)
@@ -72,7 +66,7 @@ int clvSerializeServerOutListRooms(FldOutStream* outStream, ClvSerializeListRoom
 {
     clvSerializeWriteCommand(outStream, clvSerializeCmdListRoomsResponse, DEBUG_PREFIX);
     size_t roomInfoCountToWrite = options->roomInfoCount > 16 ? 16 : options->roomInfoCount;
-    fldOutStreamWriteUInt8(outStream, roomInfoCountToWrite);
+    fldOutStreamWriteUInt8(outStream, (uint8_t)roomInfoCountToWrite);
     for (size_t i = 0; i < roomInfoCountToWrite; ++i) {
         const ClvSerializeRoomInfo* roomInfo = &options->roomInfos[i];
         clvSerializeWriteRoomId(outStream, roomInfo->roomId);

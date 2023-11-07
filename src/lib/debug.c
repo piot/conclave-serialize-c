@@ -1,7 +1,7 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Peter Bjorklund. All rights reserved.
+/*----------------------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/piot/conclave-serialize-c
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+ *--------------------------------------------------------------------------------------------------------*/
 #include <clog/clog.h>
 #include <conclave-serialize/commands.h>
 #include <conclave-serialize/debug.h>
@@ -18,14 +18,10 @@ const char* clvSerializeCmdToString(uint8_t t)
             return "Login";
         case clvSerializeCmdRoomCreate:
             return "RoomCreate";
-        case clvSerializeCmdPacket:
-            return "Packet";
         case clvSerializeCmdRoomCreateResponse:
             return "RoomCreateResponse";
         case clvSerializeCmdLoginResponse:
             return "LoginResponse";
-        case clvSerializeCmdPacketToClient:
-            return "PacketToClient";
         case clvSerializeCmdRoomJoinResponse:
             return "RoomJoinResponse";
         case clvSerializeCmdRoomReJoinResponse:

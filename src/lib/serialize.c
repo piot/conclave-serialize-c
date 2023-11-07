@@ -1,7 +1,7 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Peter Bjorklund. All rights reserved.
+/*----------------------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/piot/conclave-serialize-c
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+ *--------------------------------------------------------------------------------------------------------*/
 #include <clog/clog.h>
 #include <conclave-serialize/debug.h>
 #include <conclave-serialize/serialize.h>
@@ -10,6 +10,7 @@
 
 void clvSerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix)
 {
+    (void) prefix;
     // CLOG_VERBOSE("%s: cmd: %s", prefix, clvSerializeCmdToString(cmd));
     fldOutStreamWriteUInt8(outStream, cmd);
 }
@@ -83,7 +84,7 @@ int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream,
 int clvSerializeWriteString(FldOutStream* stream, const char* s)
 {
     size_t len = tc_strlen(s);
-    fldOutStreamWriteUInt8(stream, len);
+    fldOutStreamWriteUInt8(stream, (uint8_t)len);
     return fldOutStreamWriteOctets(stream, (const uint8_t*) s, len);
 }
 

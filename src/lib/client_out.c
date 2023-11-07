@@ -1,7 +1,7 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Peter Bjorklund. All rights reserved.
+/*----------------------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved. https://github.com/piot/conclave-serialize-c
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+ *--------------------------------------------------------------------------------------------------------*/
 #include <conclave-serialize/client_out.h>
 #include <conclave-serialize/serialize.h>
 #include <flood/out_stream.h>
@@ -13,8 +13,8 @@ int clvSerializeClientOutRoomCreate(FldOutStream* stream, ClvSerializeUserSessio
     fldOutStreamWriteUInt8(stream, clvSerializeCmdRoomCreate);
     clvSerializeWriteUserSessionId(stream, userSessionId);
     clvSerializeWriteString(stream, options->name);
-    fldOutStreamWriteUInt8(stream, options->maxNumberOfPlayers);
-    fldOutStreamWriteUInt8(stream, options->flags);
+    fldOutStreamWriteUInt8(stream, (uint8_t) options->maxNumberOfPlayers);
+    fldOutStreamWriteUInt8(stream, (uint8_t)options->flags);
 
     return 0;
 }
