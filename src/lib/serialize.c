@@ -18,7 +18,7 @@ void clvSerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const
 void clvSerializeWriteRoomId(struct FldOutStream* stream, ClvSerializeRoomId roomId)
 {
     if (roomId == 0) {
-        CLOG_ERROR("roomId zero is reserved");
+        CLOG_ERROR("roomId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x85);
     fldOutStreamWriteUInt16(stream, roomId);
@@ -33,7 +33,7 @@ int clvSerializeReadRoomId(struct FldInStream* stream, ClvSerializeRoomId* roomI
 void clvSerializeWriteUserSessionId(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId)
 {
     if (userSessionId == 0) {
-        CLOG_ERROR("userSessionId zero is reserved");
+        CLOG_ERROR("userSessionId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x86);
     fldOutStreamWriteUInt64(stream, userSessionId);
