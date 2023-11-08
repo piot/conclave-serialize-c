@@ -3,6 +3,7 @@ project(conclave-serialize C)
 
 add_subdirectory(deps/piot/clog/src/lib)
 add_subdirectory(deps/piot/flood-c/src/lib)
+add_subdirectory(deps/piot/guise-serialize-c/src/lib)
 add_subdirectory(deps/piot/tiny-libc/src/lib)
 
 

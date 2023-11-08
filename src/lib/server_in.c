@@ -11,18 +11,3 @@ int clvSerializeServerInListRooms(FldInStream* stream, ClvSerializeListRoomsOpti
     fldInStreamReadUInt64(stream, &options->applicationId);
     return fldInStreamReadUInt8(stream, &options->maximumCount);
 }
-
-int clvSerializeServerInLogin(FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
-                              ClvSerializeServerChallenge* serverChallenge, char* target, size_t maxTarget)
-{
-    clvSerializeReadClientNonce(inStream, clientNonce);
-    clvSerializeReadServerChallenge(inStream, serverChallenge);
-    clvSerializeReadString(inStream, target, maxTarget);
-
-    return 0;
-}
-
-int clvSerializeServerInChallenge(FldInStream* inStream, ClvSerializeClientNonce* clientNonce)
-{
-    return clvSerializeReadClientNonce(inStream, clientNonce);
-}

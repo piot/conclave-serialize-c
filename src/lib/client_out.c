@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------------------*/
 #include <conclave-serialize/client_out.h>
 #include <conclave-serialize/serialize.h>
+#include <guise-serialize/serialize.h>
 #include <flood/out_stream.h>
 #include <tiny-libc/tiny_libc.h>
 
@@ -30,24 +31,14 @@ int clvSerializeClientOutRoomAndConnectionIndex(FldOutStream* stream, ClvSeriali
 #define COMMAND_DEBUG "ClientOut"
 
 int clvSerializeClientOutLogin(FldOutStream* stream, ClvSerializeClientNonce clientNonce,
-                               ClvSerializeServerChallenge challenge, const char* name)
+                               GuiseSerializeUserSessionId userSessionId)
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdLogin, COMMAND_DEBUG);
     clvSerializeWriteClientNonce(stream, clientNonce);
-    clvSerializeWriteServerChallenge(stream, challenge);
-    clvSerializeWriteString(stream, name);
+    guiseSerializeWriteUserSessionId(stream, userSessionId);
 
     return 0;
 }
-
-int clvSerializeClientOutChallenge(FldOutStream* stream, ClvSerializeClientNonce clientNonce)
-{
-    clvSerializeWriteCommand(stream, clvSerializeCmdChallenge, COMMAND_DEBUG);
-    clvSerializeWriteClientNonce(stream, clientNonce);
-
-    return 0;
-}
-
 int clvSerializeClientOutRoomJoin(FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
                                   const ClvSerializeRoomJoinOptions* options)
 {

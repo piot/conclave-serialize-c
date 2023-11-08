@@ -21,9 +21,6 @@ int clvSerializeReadUserSessionId(struct FldInStream* stream, ClvSerializeUserSe
 void clvSerializeWriteClientNonce(struct FldOutStream* outStream, ClvSerializeClientNonce clientNonce);
 int clvSerializeReadClientNonce(struct FldInStream* stream, ClvSerializeClientNonce* clientNonce);
 
-void clvSerializeWriteServerChallenge(struct FldOutStream* outStream, ClvSerializeServerChallenge serverChallenge);
-int clvSerializeReadServerChallenge(struct FldInStream* stream, ClvSerializeServerChallenge* serverChallenge);
-
 void clvSerializeWriteRoomId(struct FldOutStream* outStream, ClvSerializeRoomId roomId);
 int clvSerializeReadRoomId(struct FldInStream* stream, ClvSerializeRoomId* roomId);
 

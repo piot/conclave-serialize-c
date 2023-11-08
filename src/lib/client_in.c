@@ -6,6 +6,7 @@
 #include <conclave-serialize/serialize.h>
 #include <flood/in_stream.h>
 #include <tiny-libc/tiny_libc.h>
+#include <guise-serialize/serialize.h>
 
 int clvSerializeClientInListRoomsResponse(FldInStream* stream, ClvSerializeListRoomsResponseOptions* options)
 {
@@ -21,19 +22,10 @@ int clvSerializeClientInListRoomsResponse(FldInStream* stream, ClvSerializeListR
         char tempStr[32];
         clvSerializeReadString(stream, tempStr, 32);
         roomInfo->roomName = tc_str_dup(tempStr);
-        clvSerializeReadString(stream, tempStr, 32);
-        roomInfo->hostUserName = tc_str_dup(tempStr);
+        guiseSerializeReadUserId(stream, &roomInfo->ownerUserId);
     }
 
     return 0;
-}
-
-int clvSerializeClientInChallenge(FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
-                                  ClvSerializeServerChallenge* serverChallenge)
-{
-    clvSerializeReadClientNonce(inStream, clientNonce);
-
-    return clvSerializeReadServerChallenge(inStream, serverChallenge);
 }
 
 int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,

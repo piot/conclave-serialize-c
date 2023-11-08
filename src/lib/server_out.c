@@ -4,6 +4,8 @@
  *--------------------------------------------------------------------------------------------------------*/
 #include <conclave-serialize/commands.h>
 #include <conclave-serialize/server_out.h>
+#include <guise-serialize/serialize.h>
+
 #include <flood/out_stream.h>
 
 static int writeRoomConnectionIndex(FldOutStream* outStream, uint8_t roomConnectionIndex)
@@ -26,16 +28,6 @@ int clvSerializeServerOutRoomCreate(FldOutStream* outStream, ClvSerializeRoomId 
         return errorCode;
     }
     return errorCode;
-}
-
-int clvSerializeServerOutChallenge(FldOutStream* outStream, ClvSerializeClientNonce forClient,
-                                   ClvSerializeServerChallenge challenge)
-{
-    clvSerializeWriteCommand(outStream, clvSerializeCmdChallengeResponse, DEBUG_PREFIX);
-    clvSerializeWriteClientNonce(outStream, forClient);
-    clvSerializeWriteServerChallenge(outStream, challenge);
-
-    return 0;
 }
 
 int clvSerializeServerOutLogin(FldOutStream* outStream, ClvSerializeClientNonce forClient,
@@ -72,7 +64,7 @@ int clvSerializeServerOutListRooms(FldOutStream* outStream, ClvSerializeListRoom
         clvSerializeWriteRoomId(outStream, roomInfo->roomId);
         fldOutStreamWriteUInt64(outStream, roomInfo->applicationId);
         clvSerializeWriteString(outStream, roomInfo->roomName);
-        clvSerializeWriteString(outStream, roomInfo->hostUserName);
+        guiseSerializeWriteUserId(outStream, roomInfo->ownerUserId);
     }
 
     return 0;

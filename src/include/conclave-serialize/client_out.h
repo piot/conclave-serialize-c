@@ -7,14 +7,15 @@
 
 #include <conclave-serialize/commands.h>
 #include <conclave-serialize/types.h>
+#include <guise-serialize/types.h>
+
 #include <stdint.h>
 #include <stdlib.h>
 
 struct FldOutStream;
 
-int clvSerializeClientOutChallenge(struct FldOutStream* stream, ClvSerializeClientNonce clientNonce);
 int clvSerializeClientOutLogin(struct FldOutStream* stream, ClvSerializeClientNonce clientNonce,
-                               ClvSerializeServerChallenge challenge, const char* name);
+                               GuiseSerializeUserSessionId userSessionId);
 int clvSerializeClientOutRoomCreate(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
                                     const ClvSerializeRoomCreateOptions* options);
 int clvSerializeClientOutRoomJoin(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId,

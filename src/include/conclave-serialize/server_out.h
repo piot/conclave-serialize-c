@@ -11,8 +11,6 @@
 
 struct FldOutStream;
 
-int clvSerializeServerOutChallenge(struct FldOutStream* outStream, ClvSerializeClientNonce forClient,
-                                   ClvSerializeServerChallenge challenge);
 int clvSerializeServerOutLogin(struct FldOutStream* outStream, ClvSerializeClientNonce forClient,
                                ClvSerializeUserSessionId userSession);
 int clvSerializeServerOutRoomCreate(struct FldOutStream* outStream, ClvSerializeRoomId roomId,

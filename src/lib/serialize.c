@@ -57,18 +57,6 @@ int clvSerializeReadClientNonce(struct FldInStream* stream, ClvSerializeClientNo
     return fldInStreamReadUInt64(stream, clientNonce);
 }
 
-void clvSerializeWriteServerChallenge(struct FldOutStream* stream, ClvSerializeServerChallenge serverChallenge)
-{
-    fldOutStreamWriteMarker(stream, 0x88);
-    fldOutStreamWriteUInt64(stream, serverChallenge);
-}
-
-int clvSerializeReadServerChallenge(struct FldInStream* stream, ClvSerializeServerChallenge* serverChallenge)
-{
-    fldInStreamCheckMarker(stream, 0x88);
-    return fldInStreamReadUInt64(stream, serverChallenge);
-}
-
 int clvSerializeWriteRoomConnectionIndex(struct FldOutStream* stream,
                                          ClvSerializeRoomConnectionIndex roomConnectionIndex)
 {
@@ -84,7 +72,7 @@ int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream,
 int clvSerializeWriteString(FldOutStream* stream, const char* s)
 {
     size_t len = tc_strlen(s);
-    fldOutStreamWriteUInt8(stream, (uint8_t)len);
+    fldOutStreamWriteUInt8(stream, (uint8_t) len);
     return fldOutStreamWriteOctets(stream, (const uint8_t*) s, len);
 }
 

@@ -4,6 +4,5 @@ name = "piot/conclave-serialize-c"
 version = "0.0.0"
 
 [[dependencies]]
-name = 'piot/flood-c'
+name = 'piot/guise-serialize-c'
 version = "*"
-

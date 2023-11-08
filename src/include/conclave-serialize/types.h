@@ -8,21 +8,18 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <guise-serialize/types.h>
+
 typedef uint16_t ClvSerializeRoomId;
 typedef uint64_t ClvSerializeUserSessionId;
 typedef uint8_t ClvSerializeRoomConnectionIndex;
 typedef uint64_t ClvSerializeApplicationId;
 typedef uint64_t ClvSerializeClientNonce;
-typedef uint64_t ClvSerializeServerChallenge;
 
 struct BlobStreamOutEntry;
 
-typedef struct ClvSerializeRoomCreatePlayerOptions {
-    uint8_t localUserDeviceIndex;
-    const char* name;
-} ClvSerializeRoomCreatePlayerOptions;
-
 typedef struct ClvSerializeRoomCreateOptions {
+    ClvSerializeApplicationId applicationId;
     size_t maxNumberOfPlayers;
     int flags;
     const char* name;
@@ -46,7 +43,7 @@ typedef struct ClvSerializeRoomInfo {
     ClvSerializeRoomId roomId;
     ClvSerializeApplicationId applicationId;
     const char* roomName;
-    const char* hostUserName;
+    GuiseSerializeUserId ownerUserId;
 } ClvSerializeRoomInfo;
 
 #define CLV_MAX_ROOM_COUNT_QUERY_RESPONSE (16)
