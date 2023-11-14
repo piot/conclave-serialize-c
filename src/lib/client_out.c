@@ -34,8 +34,8 @@ int clvSerializeClientOutLogin(FldOutStream* stream, ClvSerializeClientNonce cli
                                GuiseSerializeUserSessionId userSessionId)
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdLogin, COMMAND_DEBUG);
-    clvSerializeWriteClientNonce(stream, clientNonce);
     guiseSerializeWriteUserSessionId(stream, userSessionId);
+    clvSerializeWriteClientNonce(stream, clientNonce);
 
     return 0;
 }
