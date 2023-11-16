@@ -15,17 +15,22 @@
 struct FldOutStream;
 
 int clvSerializeClientOutLogin(struct FldOutStream* stream, ClvSerializeClientNonce clientNonce,
-                               GuiseSerializeUserSessionId userSessionId);
-int clvSerializeClientOutRoomCreate(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
-                                    const ClvSerializeRoomCreateOptions* options);
-int clvSerializeClientOutRoomJoin(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
-                                  const ClvSerializeRoomJoinOptions* players);
-int clvSerializeClientOutRoomReJoin(struct FldOutStream* stream, const ClvSerializeRoomReJoinOptions* options);
-int clvSerializeClientOutGameJoin(struct FldOutStream* stream, ClvSerializeRoomId roomId, uint8_t roomConnectionIndex);
-int clvSerializeClientOutRoomAndConnectionIndex(struct FldOutStream* stream, ClvSerializeRoomId roomId,
-                                                uint8_t roomConnectionIndex);
+    GuiseSerializeUserSessionId userSessionId);
+int clvSerializeClientOutRoomCreate(struct FldOutStream* stream,
+    ClvSerializeUserSessionId userSessionId, const ClvSerializeRoomCreateOptions* options);
+int clvSerializeClientOutRoomJoin(struct FldOutStream* stream,
+    ClvSerializeUserSessionId userSessionId, const ClvSerializeRoomJoinOptions* players);
+int clvSerializeClientOutRoomReJoin(
+    struct FldOutStream* stream, const ClvSerializeRoomReJoinOptions* options);
+int clvSerializeClientOutGameJoin(
+    struct FldOutStream* stream, ClvSerializeRoomId roomId, uint8_t roomConnectionIndex);
+int clvSerializeClientOutRoomAndConnectionIndex(
+    struct FldOutStream* stream, ClvSerializeRoomId roomId, uint8_t roomConnectionIndex);
 
-int clvSerializeClientOutListRooms(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
-                                   const ClvSerializeListRoomsOptions* options);
+int clvSerializeClientOutListRooms(struct FldOutStream* stream,
+    ClvSerializeUserSessionId userSessionId, const ClvSerializeListRoomsOptions* options);
+
+int clvSerializeClientOutPing(
+    struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId, uint64_t knowledge);
 
 #endif

@@ -12,13 +12,16 @@
 struct FldOutStream;
 
 int clvSerializeServerOutLogin(struct FldOutStream* outStream, ClvSerializeClientNonce forClient,
-                               ClvSerializeUserSessionId userSession);
+    ClvSerializeUserSessionId userSession);
 int clvSerializeServerOutRoomCreate(struct FldOutStream* outStream, ClvSerializeRoomId roomId,
-                                    ClvSerializeRoomConnectionIndex connectionIndex);
+    ClvSerializeRoomConnectionIndex connectionIndex);
 int clvSerializeServerOutRoomJoin(struct FldOutStream* outStream, ClvSerializeRoomId roomId,
-                                  ClvSerializeRoomConnectionIndex connectionIndex);
+    ClvSerializeRoomConnectionIndex connectionIndex);
 
 int clvSerializeServerOutPacketHeader(struct FldOutStream* outStream);
-int clvSerializeServerOutListRooms(struct FldOutStream* outStream, ClvSerializeListRoomsResponseOptions* options);
+int clvSerializeServerOutListRooms(
+    struct FldOutStream* outStream, ClvSerializeListRoomsResponseOptions* options);
+int clvSerializeServerOutPing(
+    struct FldOutStream* outStream, ClvSerializePingResponseOptions* options);
 
 #endif

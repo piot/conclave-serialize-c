@@ -53,4 +53,16 @@ typedef struct ClvSerializeListRoomsResponseOptions {
     ClvSerializeRoomInfo roomInfos[CLV_MAX_ROOM_COUNT_QUERY_RESPONSE];
 } ClvSerializeListRoomsResponseOptions;
 
+#define CLV_MAX_MEMBERS_IN_ROOM (16)
+
+typedef struct ClvSerializeRoomWithMembersInfo {
+    GuiseSerializeUserId members[CLV_MAX_MEMBERS_IN_ROOM];
+    size_t memberCount;
+    uint8_t indexOfOwner;
+} ClvSerializeRoomWithMembersInfo;
+
+typedef struct ClvSerializePingResponseOptions {
+    ClvSerializeRoomWithMembersInfo roomInfo;
+} ClvSerializePingResponseOptions;
+
 #endif

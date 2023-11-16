@@ -11,3 +11,8 @@ int clvSerializeServerInListRooms(FldInStream* stream, ClvSerializeListRoomsOpti
     fldInStreamReadUInt64(stream, &options->applicationId);
     return fldInStreamReadUInt8(stream, &options->maximumCount);
 }
+
+int clvSerializeServerInPing(struct FldInStream* stream, uint64_t* knowledge)
+{
+    return fldInStreamReadUInt64(stream, knowledge);
+}

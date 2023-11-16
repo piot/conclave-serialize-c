@@ -18,6 +18,8 @@ const char* clvSerializeCmdToString(uint8_t t)
             return "Login";
         case clvSerializeCmdRoomCreate:
             return "RoomCreate";
+        case clvSerializeCmdPing:
+            return "Ping";
         case clvSerializeCmdRoomCreateResponse:
             return "RoomCreateResponse";
         case clvSerializeCmdLoginResponse:
@@ -30,6 +32,8 @@ const char* clvSerializeCmdToString(uint8_t t)
             return "ListRooms";
         case clvSerializeCmdListRoomsResponse:
             return "ListRoomsResponse";
+        case clvSerializeCmdPingResponse:
+            return "PingResponse";
         default: {
             static char buf[128];
             tc_snprintf(buf, 128, "no idea %02X", t);

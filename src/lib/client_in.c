@@ -5,10 +5,11 @@
 #include <conclave-serialize/client_in.h>
 #include <conclave-serialize/serialize.h>
 #include <flood/in_stream.h>
-#include <tiny-libc/tiny_libc.h>
 #include <guise-serialize/serialize.h>
+#include <tiny-libc/tiny_libc.h>
 
-int clvSerializeClientInListRoomsResponse(FldInStream* stream, ClvSerializeListRoomsResponseOptions* options)
+int clvSerializeClientInListRoomsResponse(
+    FldInStream* stream, ClvSerializeListRoomsResponseOptions* options)
 {
     uint8_t roomInfoCount;
     fldInStreamReadUInt8(stream, &roomInfoCount);
@@ -28,8 +29,25 @@ int clvSerializeClientInListRoomsResponse(FldInStream* stream, ClvSerializeListR
     return 0;
 }
 
+int clvSerializeClientInPingResponse(FldInStream* stream, ClvSerializePingResponseOptions* options)
+{
+    uint8_t memberCount;
+    fldInStreamReadUInt8(stream, &memberCount);
+    options->roomInfo.memberCount = memberCount;
+
+    for (size_t i = 0; i < memberCount; ++i) {
+        GuiseSerializeUserId* userId = &options->roomInfo.members[i];
+
+        guiseSerializeReadUserId(stream, userId);
+    }
+
+    fldInStreamReadUInt8(stream, &options->roomInfo.indexOfOwner);
+
+    return 0;
+}
+
 int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
-                              ClvSerializeUserSessionId* userSessionId)
+    ClvSerializeUserSessionId* userSessionId)
 {
     clvSerializeReadClientNonce(inStream, clientNonce);
 

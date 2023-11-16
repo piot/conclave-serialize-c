@@ -12,9 +12,12 @@
 
 struct FldInStream;
 
-int clvSerializeClientInListRoomsResponse(struct FldInStream* stream, ClvSerializeListRoomsResponseOptions* options);
+int clvSerializeClientInListRoomsResponse(
+    struct FldInStream* stream, ClvSerializeListRoomsResponseOptions* options);
 
 int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
-                              ClvSerializeUserSessionId* userSessionId);
+    ClvSerializeUserSessionId* userSessionId);
+int clvSerializeClientInPingResponse(
+    struct FldInStream* stream, ClvSerializePingResponseOptions* options);
 
 #endif
