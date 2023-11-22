@@ -15,6 +15,8 @@ typedef uint64_t ClvSerializeUserSessionId;
 typedef uint8_t ClvSerializeRoomConnectionIndex;
 typedef uint64_t ClvSerializeApplicationId;
 typedef uint64_t ClvSerializeClientNonce;
+typedef uint64_t ClvSerializeKnowledge;
+
 
 struct BlobStreamOutEntry;
 
