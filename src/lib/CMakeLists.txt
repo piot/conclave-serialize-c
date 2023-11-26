@@ -16,5 +16,6 @@ target_include_directories(conclave-serialize PUBLIC ../include)
 
 
 target_link_libraries(conclave-serialize PUBLIC 
-  guise-serialize)
+  guise-serialize
+  imprint)
 

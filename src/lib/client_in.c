@@ -6,10 +6,11 @@
 #include <conclave-serialize/serialize.h>
 #include <flood/in_stream.h>
 #include <guise-serialize/serialize.h>
+#include <imprint/allocator.h>
 #include <tiny-libc/tiny_libc.h>
 
 int clvSerializeClientInListRoomsResponse(
-    FldInStream* stream, ClvSerializeListRoomsResponseOptions* options)
+    FldInStream* stream, ImprintAllocator* allocator, ClvSerializeListRoomsResponseOptions* options)
 {
     uint8_t roomInfoCount;
     fldInStreamReadUInt8(stream, &roomInfoCount);
@@ -24,6 +25,15 @@ int clvSerializeClientInListRoomsResponse(
         clvSerializeReadString(stream, tempStr, 32);
         roomInfo->roomName = tc_str_dup(tempStr);
         guiseSerializeReadUserId(stream, &roomInfo->ownerUserId);
+
+        fldInStreamReadUInt8(stream, &roomInfo->memberCount);
+        fldInStreamReadUInt8(stream, &roomInfo->maxMemberCount);
+        fldInStreamReadUInt16(stream, &roomInfo->externalStateOctetCount);
+
+        roomInfo->externalStateOctets
+            = IMPRINT_ALLOC(allocator, roomInfo->externalStateOctetCount, "external state octets");
+        fldInStreamReadOctets(
+            stream, roomInfo->externalStateOctets, roomInfo->externalStateOctetCount);
     }
 
     return 0;

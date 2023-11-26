@@ -46,6 +46,10 @@ typedef struct ClvSerializeRoomInfo {
     ClvSerializeApplicationId applicationId;
     const char* roomName;
     GuiseSerializeUserId ownerUserId;
+    uint8_t memberCount;
+    uint8_t maxMemberCount;
+    uint8_t* externalStateOctets;
+    uint16_t externalStateOctetCount;
 } ClvSerializeRoomInfo;
 
 #define CLV_MAX_ROOM_COUNT_QUERY_RESPONSE (16)

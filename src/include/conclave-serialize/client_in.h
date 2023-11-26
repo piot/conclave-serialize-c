@@ -11,9 +11,10 @@
 #include <stdlib.h>
 
 struct FldInStream;
+struct ImprintAllocator;
 
-int clvSerializeClientInListRoomsResponse(
-    struct FldInStream* stream, ClvSerializeListRoomsResponseOptions* options);
+int clvSerializeClientInListRoomsResponse(struct FldInStream* stream,
+    struct ImprintAllocator* allocator, ClvSerializeListRoomsResponseOptions* options);
 
 int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
     ClvSerializeUserSessionId* userSessionId);

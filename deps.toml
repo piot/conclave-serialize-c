@@ -6,3 +6,8 @@ version = "0.0.0"
 [[dependencies]]
 name = 'piot/guise-serialize-c'
 version = "*"
+
+
+[[dependencies]]
+name = 'piot/imprint'
+version = "*"

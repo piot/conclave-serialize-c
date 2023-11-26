@@ -56,7 +56,7 @@ int clvSerializeServerOutRoomJoin(FldOutStream* outStream, ClvSerializeRoomId ro
 int clvSerializeServerOutListRooms(
     FldOutStream* outStream, ClvSerializeListRoomsResponseOptions* options)
 {
-    clvSerializeWriteCommand(outStream, clvSerializeCmdListRoomsResponse, DEBUG_PREFIX);
+    //clvSerializeWriteCommand(outStream, clvSerializeCmdListRoomsResponse, DEBUG_PREFIX);
     size_t roomInfoCountToWrite = options->roomInfoCount > 16 ? 16 : options->roomInfoCount;
     fldOutStreamWriteUInt8(outStream, (uint8_t)roomInfoCountToWrite);
     for (size_t i = 0; i < roomInfoCountToWrite; ++i) {
@@ -65,6 +65,10 @@ int clvSerializeServerOutListRooms(
         fldOutStreamWriteUInt64(outStream, roomInfo->applicationId);
         clvSerializeWriteString(outStream, roomInfo->roomName);
         guiseSerializeWriteUserId(outStream, roomInfo->ownerUserId);
+        fldOutStreamWriteUInt8(outStream, roomInfo->memberCount);
+        fldOutStreamWriteUInt8(outStream, roomInfo->maxMemberCount);
+        fldOutStreamWriteUInt16(outStream, roomInfo->externalStateOctetCount);
+        fldOutStreamWriteOctets(outStream, roomInfo->externalStateOctets, roomInfo->externalStateOctetCount);
     }
 
     return 0;
