@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <conclave-serialize/version.h>
 #include <guise-serialize/types.h>
 
 typedef uint16_t ClvSerializeRoomId;
@@ -17,14 +18,14 @@ typedef uint64_t ClvSerializeApplicationId;
 typedef uint64_t ClvSerializeClientNonce;
 typedef uint64_t ClvSerializeKnowledge;
 
-
 struct BlobStreamOutEntry;
 
 typedef struct ClvSerializeRoomCreateOptions {
     ClvSerializeApplicationId applicationId;
-    size_t maxNumberOfPlayers;
-    int flags;
-    const char* name;
+    ClvSerializeApplicationVersion applicationVersion;
+    uint8_t maxNumberOfPlayers;
+    uint8_t flags;
+    char name[64];
 } ClvSerializeRoomCreateOptions;
 
 typedef struct ClvSerializeRoomJoinOptions {
@@ -44,6 +45,7 @@ typedef struct ClvSerializeListRoomsOptions {
 typedef struct ClvSerializeRoomInfo {
     ClvSerializeRoomId roomId;
     ClvSerializeApplicationId applicationId;
+    ClvSerializeApplicationVersion applicationVersion;
     const char* roomName;
     GuiseSerializeUserId ownerUserId;
     uint8_t memberCount;

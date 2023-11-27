@@ -21,6 +21,7 @@ int clvSerializeClientInListRoomsResponse(
         ClvSerializeRoomInfo* roomInfo = &options->roomInfos[i];
         clvSerializeReadRoomId(stream, &roomInfo->roomId);
         fldInStreamReadUInt64(stream, &roomInfo->applicationId);
+        clvSerializeReadVersion(stream, &roomInfo->applicationVersion);
         char tempStr[32];
         clvSerializeReadString(stream, tempStr, 32);
         roomInfo->roomName = tc_str_dup(tempStr);

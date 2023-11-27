@@ -13,6 +13,8 @@ int clvSerializeClientOutRoomCreate(FldOutStream* stream, ClvSerializeUserSessio
 {
     fldOutStreamWriteUInt8(stream, clvSerializeCmdRoomCreate);
     clvSerializeWriteUserSessionId(stream, userSessionId);
+    fldOutStreamWriteUInt64(stream, options->applicationId);
+    clvSerializeWriteVersion(stream, options->applicationVersion);
     clvSerializeWriteString(stream, options->name);
     fldOutStreamWriteUInt8(stream, (uint8_t)options->maxNumberOfPlayers);
     fldOutStreamWriteUInt8(stream, (uint8_t)options->flags);

@@ -16,3 +16,12 @@ int clvSerializeServerInPing(struct FldInStream* stream, uint64_t* knowledge)
 {
     return fldInStreamReadUInt64(stream, knowledge);
 }
+
+int clvSerializeServerInCreateRoom(FldInStream* stream, ClvSerializeRoomCreateOptions* options)
+{
+    fldInStreamReadUInt64(stream, &options->applicationId);
+    clvSerializeReadVersion(stream, &options->applicationVersion);
+    clvSerializeReadString(stream, options->name, 64);
+    fldInStreamReadUInt8(stream, &options->maxNumberOfPlayers);
+    return fldInStreamReadUInt8(stream, &options->flags);
+}

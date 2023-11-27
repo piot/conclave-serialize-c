@@ -10,7 +10,7 @@
 
 void clvSerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix)
 {
-    (void) prefix;
+    (void)prefix;
     // CLOG_VERBOSE("%s: cmd: %s", prefix, clvSerializeCmdToString(cmd));
     fldOutStreamWriteUInt8(outStream, cmd);
 }
@@ -30,7 +30,8 @@ int clvSerializeReadRoomId(struct FldInStream* stream, ClvSerializeRoomId* roomI
     return fldInStreamReadUInt16(stream, roomId);
 }
 
-void clvSerializeWriteUserSessionId(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId)
+void clvSerializeWriteUserSessionId(
+    struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId)
 {
     if (userSessionId == 0) {
         CLOG_ERROR("userSessionId zero is reserved")
@@ -39,7 +40,8 @@ void clvSerializeWriteUserSessionId(struct FldOutStream* stream, ClvSerializeUse
     fldOutStreamWriteUInt64(stream, userSessionId);
 }
 
-int clvSerializeReadUserSessionId(struct FldInStream* stream, ClvSerializeUserSessionId* userSessionId)
+int clvSerializeReadUserSessionId(
+    struct FldInStream* stream, ClvSerializeUserSessionId* userSessionId)
 {
     fldInStreamCheckMarker(stream, 0x86);
     return fldInStreamReadUInt64(stream, userSessionId);
@@ -57,14 +59,30 @@ int clvSerializeReadClientNonce(struct FldInStream* stream, ClvSerializeClientNo
     return fldInStreamReadUInt64(stream, clientNonce);
 }
 
-int clvSerializeWriteRoomConnectionIndex(struct FldOutStream* stream,
-                                         ClvSerializeRoomConnectionIndex roomConnectionIndex)
+int clvSerializeWriteVersion(struct FldOutStream* stream, ClvSerializeApplicationVersion version)
+{
+    fldOutStreamWriteMarker(stream, 0x88);
+    fldOutStreamWriteUInt16(stream, version.major);
+    fldOutStreamWriteUInt16(stream, version.minor);
+    return fldOutStreamWriteUInt16(stream, version.patch);
+}
+
+int clvSerializeReadVersion(struct FldInStream* stream, ClvSerializeApplicationVersion* version)
+{
+    fldInStreamCheckMarker(stream, 0x88);
+    fldInStreamReadUInt16(stream, &version->major);
+    fldInStreamReadUInt16(stream, &version->minor);
+    return fldInStreamReadUInt16(stream, &version->patch);
+}
+
+int clvSerializeWriteRoomConnectionIndex(
+    struct FldOutStream* stream, ClvSerializeRoomConnectionIndex roomConnectionIndex)
 {
     return fldOutStreamWriteUInt8(stream, roomConnectionIndex);
 }
 
-int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream,
-                                        ClvSerializeRoomConnectionIndex* roomConnectionIndex)
+int clvSerializeReadRoomConnectionIndex(
+    struct FldInStream* stream, ClvSerializeRoomConnectionIndex* roomConnectionIndex)
 {
     return fldInStreamReadUInt8(stream, roomConnectionIndex);
 }
@@ -72,8 +90,8 @@ int clvSerializeReadRoomConnectionIndex(struct FldInStream* stream,
 int clvSerializeWriteString(FldOutStream* stream, const char* s)
 {
     size_t len = tc_strlen(s);
-    fldOutStreamWriteUInt8(stream, (uint8_t) len);
-    return fldOutStreamWriteOctets(stream, (const uint8_t*) s, len);
+    fldOutStreamWriteUInt8(stream, (uint8_t)len);
+    return fldOutStreamWriteOctets(stream, (const uint8_t*)s, len);
 }
 
 int clvSerializeReadString(struct FldInStream* stream, char* buf, size_t maxLength)
@@ -83,7 +101,7 @@ int clvSerializeReadString(struct FldInStream* stream, char* buf, size_t maxLeng
     if (stringLength + 1 > maxLength) {
         return -1;
     }
-    int errorCode = fldInStreamReadOctets(stream, (uint8_t*) buf, stringLength);
+    int errorCode = fldInStreamReadOctets(stream, (uint8_t*)buf, stringLength);
     if (errorCode < 0) {
         return errorCode;
     }

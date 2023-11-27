@@ -63,12 +63,14 @@ int clvSerializeServerOutListRooms(
         const ClvSerializeRoomInfo* roomInfo = &options->roomInfos[i];
         clvSerializeWriteRoomId(outStream, roomInfo->roomId);
         fldOutStreamWriteUInt64(outStream, roomInfo->applicationId);
+        clvSerializeWriteVersion(outStream, roomInfo->applicationVersion);
         clvSerializeWriteString(outStream, roomInfo->roomName);
         guiseSerializeWriteUserId(outStream, roomInfo->ownerUserId);
         fldOutStreamWriteUInt8(outStream, roomInfo->memberCount);
         fldOutStreamWriteUInt8(outStream, roomInfo->maxMemberCount);
         fldOutStreamWriteUInt16(outStream, roomInfo->externalStateOctetCount);
-        fldOutStreamWriteOctets(outStream, roomInfo->externalStateOctets, roomInfo->externalStateOctetCount);
+        fldOutStreamWriteOctets(
+            outStream, roomInfo->externalStateOctets, roomInfo->externalStateOctetCount);
     }
 
     return 0;
