@@ -42,6 +42,9 @@ int clvSerializeClientInListRoomsResponse(
 
 int clvSerializeClientInPingResponse(FldInStream* stream, ClvSerializePingResponseOptions* options)
 {
+    fldInStreamReadUInt64(stream, &options->version);
+    clvSerializeReadTerm(stream, &options->term);
+
     uint8_t memberCount;
     fldInStreamReadUInt8(stream, &memberCount);
     options->roomInfo.memberCount = memberCount;
@@ -52,9 +55,7 @@ int clvSerializeClientInPingResponse(FldInStream* stream, ClvSerializePingRespon
         guiseSerializeReadUserId(stream, userId);
     }
 
-    fldInStreamReadUInt8(stream, &options->roomInfo.indexOfOwner);
-
-    return 0;
+    return fldInStreamReadUInt8(stream, &options->roomInfo.indexOfOwner);
 }
 
 int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,

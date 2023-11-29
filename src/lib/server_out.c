@@ -79,6 +79,8 @@ int clvSerializeServerOutListRooms(
 int clvSerializeServerOutPing(FldOutStream* outStream, ClvSerializePingResponseOptions* options)
 {
     clvSerializeWriteCommand(outStream, clvSerializeCmdPingResponse, DEBUG_PREFIX);
+    fldOutStreamWriteUInt64(outStream, options->version);
+    clvSerializeWriteTerm(outStream, options->term);
     fldOutStreamWriteUInt8(outStream, (uint8_t)options->roomInfo.memberCount);
     for (size_t i = 0; i < options->roomInfo.memberCount; ++i) {
         const GuiseSerializeUserId* userId = &options->roomInfo.members[i];

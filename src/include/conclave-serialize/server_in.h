@@ -16,7 +16,8 @@ int clvSerializeServerInListRooms(
     struct FldInStream* stream, ClvSerializeListRoomsOptions* options);
 int clvSerializeServerInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
     GuiseSerializeUserSessionId userSessionId, char* target, size_t maxTarget);
-int clvSerializeServerInPing(struct FldInStream* stream, uint64_t* knowledge);
+int clvSerializeServerInPing(struct FldInStream* stream, uint64_t* knowledge,
+    ClvSerializeTerm* term, ClvSerializeConnectedToOwnerState* connectedToOwner);
 int clvSerializeServerInCreateRoom(
     struct FldInStream* stream, ClvSerializeRoomCreateOptions* options);
 

@@ -72,10 +72,12 @@ int clvSerializeClientOutListRooms(FldOutStream* stream, ClvSerializeUserSession
     return 0;
 }
 
-int clvSerializeClientOutPing(
-    struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId, uint64_t knowledge)
+int clvSerializeClientOutPing(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
+    uint64_t knowledge, ClvSerializeTerm term, ClvSerializeConnectedToOwnerState connectedToOwner)
 {
     clvSerializeWriteCommand(stream, clvSerializeCmdPing, COMMAND_DEBUG);
     clvSerializeWriteUserSessionId(stream, userSessionId);
+    clvSerializeWriteTerm(stream, term);
+    fldOutStreamWriteUInt8(stream, (uint8_t)connectedToOwner);
     return fldOutStreamWriteUInt64(stream, knowledge);
 }

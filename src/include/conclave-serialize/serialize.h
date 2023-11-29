@@ -32,6 +32,9 @@ int clvSerializeWriteRoomConnectionIndex(
 int clvSerializeReadRoomConnectionIndex(
     struct FldInStream* stream, ClvSerializeRoomConnectionIndex* roomConnectionIndex);
 
+void clvSerializeWriteTerm(struct FldOutStream* stream, ClvSerializeTerm term);
+int clvSerializeReadTerm(struct FldInStream* stream, ClvSerializeTerm* term);
+
 int clvSerializeWriteVersion(struct FldOutStream* stream, ClvSerializeApplicationVersion version);
 int clvSerializeReadVersion(struct FldInStream* stream, ClvSerializeApplicationVersion* version);
 

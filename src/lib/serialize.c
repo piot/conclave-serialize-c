@@ -75,6 +75,18 @@ int clvSerializeReadVersion(struct FldInStream* stream, ClvSerializeApplicationV
     return fldInStreamReadUInt16(stream, &version->patch);
 }
 
+void clvSerializeWriteTerm(struct FldOutStream* stream, ClvSerializeTerm term)
+{
+    fldOutStreamWriteMarker(stream, 0x89);
+    fldOutStreamWriteUInt64(stream, term);
+}
+
+int clvSerializeReadTerm(struct FldInStream* stream, ClvSerializeTerm* term)
+{
+    fldInStreamCheckMarker(stream, 0x89);
+    return fldInStreamReadUInt64(stream, term);
+}
+
 int clvSerializeWriteRoomConnectionIndex(
     struct FldOutStream* stream, ClvSerializeRoomConnectionIndex roomConnectionIndex)
 {

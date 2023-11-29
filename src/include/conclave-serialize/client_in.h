@@ -15,7 +15,6 @@ struct ImprintAllocator;
 
 int clvSerializeClientInListRoomsResponse(struct FldInStream* stream,
     struct ImprintAllocator* allocator, ClvSerializeListRoomsResponseOptions* options);
-
 int clvSerializeClientInLogin(struct FldInStream* inStream, ClvSerializeClientNonce* clientNonce,
     ClvSerializeUserSessionId* userSessionId);
 int clvSerializeClientInPingResponse(

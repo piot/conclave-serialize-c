@@ -16,7 +16,14 @@ typedef uint64_t ClvSerializeUserSessionId;
 typedef uint8_t ClvSerializeRoomConnectionIndex;
 typedef uint64_t ClvSerializeApplicationId;
 typedef uint64_t ClvSerializeClientNonce;
+typedef uint64_t ClvSerializeTerm;
 typedef uint64_t ClvSerializeKnowledge;
+
+typedef enum ClvSerializeConnectedToOwnerState {
+    ClvSerializeConnectedToOwnerStateUndefined,
+    ClvSerializeConnectedToOwnerStateConnected,
+    ClvSerializeConnectedToOwnerStateDisconnected
+} ClvSerializeConnectedToOwnerState;
 
 struct BlobStreamOutEntry;
 
@@ -70,6 +77,8 @@ typedef struct ClvSerializeRoomWithMembersInfo {
 } ClvSerializeRoomWithMembersInfo;
 
 typedef struct ClvSerializePingResponseOptions {
+    uint64_t version;
+    ClvSerializeTerm term;
     ClvSerializeRoomWithMembersInfo roomInfo;
 } ClvSerializePingResponseOptions;
 

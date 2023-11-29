@@ -8,7 +8,6 @@
 #include <conclave-serialize/commands.h>
 #include <conclave-serialize/types.h>
 #include <guise-serialize/types.h>
-
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -26,11 +25,9 @@ int clvSerializeClientOutGameJoin(
     struct FldOutStream* stream, ClvSerializeRoomId roomId, uint8_t roomConnectionIndex);
 int clvSerializeClientOutRoomAndConnectionIndex(
     struct FldOutStream* stream, ClvSerializeRoomId roomId, uint8_t roomConnectionIndex);
-
 int clvSerializeClientOutListRooms(struct FldOutStream* stream,
     ClvSerializeUserSessionId userSessionId, const ClvSerializeListRoomsOptions* options);
-
-int clvSerializeClientOutPing(
-    struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId, uint64_t knowledge);
+int clvSerializeClientOutPing(struct FldOutStream* stream, ClvSerializeUserSessionId userSessionId,
+    uint64_t knowledge, ClvSerializeTerm term, ClvSerializeConnectedToOwnerState connectedToOwner);
 
 #endif

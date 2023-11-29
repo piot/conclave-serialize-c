@@ -12,8 +12,13 @@ int clvSerializeServerInListRooms(FldInStream* stream, ClvSerializeListRoomsOpti
     return fldInStreamReadUInt8(stream, &options->maximumCount);
 }
 
-int clvSerializeServerInPing(struct FldInStream* stream, uint64_t* knowledge)
+int clvSerializeServerInPing(struct FldInStream* stream, uint64_t* knowledge,
+    ClvSerializeTerm* term, ClvSerializeConnectedToOwnerState* connectedToOwner)
 {
+    clvSerializeReadTerm(stream, term);
+    uint8_t flags;
+    fldInStreamReadUInt8(stream, &flags);
+    *connectedToOwner = (ClvSerializeConnectedToOwnerState)flags;
     return fldInStreamReadUInt64(stream, knowledge);
 }
 
